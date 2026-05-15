@@ -1,171 +1,92 @@
 # Hospital Management System
 
-## Project Overview
-**Hospital Management System** is a comprehensive application developed to efficiently manage hospital operations, including patient appointments, staff assignments, medical records, and administrative tasks. The system offers distinct roles for **Patients**, **Doctors**, **Nurses/Staff**, and **Admin**, ensuring a streamlined workflow for each user group. The application is built using **Java (Spring Boot)** for the backend and **React.js** for the frontend, with a focus on scalability, security, and user-friendly design.
+## Overview
+Hospital Management System is a full-stack application designed to streamline hospital workflows for patients, medical staff, and administrators. It combines a Spring Boot backend with a React frontend to provide secure authentication, appointment scheduling, patient management, and administrative controls.
 
----
-
-## Project Roadmap
-
-1. **Define Project Requirements**
-   - Clearly outline features and functionalities for each user role to ensure a structured development approach.
-
-### User Modules
-
-- **Patient (External User)**:
-  - Registration and Login with secure authentication.
-  - Browse doctor profiles by department.
-  - Book appointments with options to choose date, time, and doctor.
-  - View appointment history and check appointment status.
-  - Receive notifications and reminders for upcoming appointments.
-
-- **Admin (Internal User)**:
-  - Manage profiles for doctors, nurses, and other staff.
-  - Organize departments (e.g., Cardiology, Neurology).
-  - Oversee and manage appointment bookings and scheduling.
-  - Generate reports (e.g., patient history, financial summaries, and appointment trends).
-
-- **Doctor**:
-  - Access personal schedule and upcoming appointments.
-  - Manage patient records for diagnoses and treatment.
-  - Prescribe medicines and generate prescriptions.
-  - Update patient statuses (admitted, discharged, etc.).
-
-- **Nurse/Staff**:
-  - View details of assigned patients.
-  - Update patient vitals (e.g., blood pressure, temperature).
-  - Assist doctors in patient care and record maintenance.
-
----
+## Key Features
+- Role-based access for Patients, Doctors, Nurses/Staff, and Admin users
+- Patient registration, login, and appointment booking
+- Doctor and department management
+- Appointment tracking and status updates
+- Medical record viewing and prescription handling
+- Secure authentication with JWT-based authorization
 
 ## Technology Stack
+- Backend: Java, Spring Boot, Spring Security, Spring Data JPA
+- Frontend: React, React Router, Axios
+- Database: MySQL / PostgreSQL (configurable)
+- Build tools: Maven for backend, npm for frontend
 
-### Backend
-- **Java** with **Spring Boot**
-- **MySQL** or **PostgreSQL** for database management
-- **REST APIs** for frontend-backend communication
-- **Hibernate/JPA** for ORM
+## Repository Structure
+- `backend/hospital/`: Spring Boot application source code and configuration
+- `frontend/hospital-frontend/`: React frontend application
+- `.gitignore`: common ignore patterns for Java, Node, and OS files
+- `README.md`: project documentation
 
-### Frontend
-- **React.js** with **React Router** for navigation
-- **Axios** for API requests
-- **Material-UI** or **Bootstrap** for a modern, responsive UI
+## Installation
+### 1. Clone the repository
+```bash
+git clone https://github.com/likhith22-bot/hospital-management-system.git
+cd hospital-management-system
+```
 
-### Tools and Deployment
-- **Git** for version control, **GitHub** for repository hosting
-- **Postman** for API testing
-- **Maven**/ **Gradle** for project management
-- **Docker** for containerization
-- **AWS** or **Heroku** for cloud deployment
+### 2. Backend setup
+```bash
+cd backend/hospital
+./mvnw clean install
+```
+- Configure database connection in `src/main/resources/application.properties`.
+- Run the backend:
+```bash
+./mvnw spring-boot:run
+```
 
----
+### 3. Frontend setup
+```bash
+cd ../../frontend/hospital-frontend
+npm install
+npm start
+```
+- The frontend will typically run at `http://localhost:3000`.
+- Ensure backend API endpoints are reachable from the frontend.
 
-## System Architecture
+## Configuration
+Update backend database and security settings in:
+- `backend/hospital/src/main/resources/application.properties`
 
-- **Architecture**: Microservices or Monolithic (based on project needs)
-- **Pattern**: MVC (Model-View-Controller)
-- **Authentication**: JWT (JSON Web Tokens) for secure endpoint access
-- **Database Schema**: Carefully planned tables and relationships (ER Diagram included)
+For frontend API settings, update:
+- `frontend/hospital-frontend/src/api/axiosConfig.js`
 
----
+## Project Modules
+### Patient
+- Register and login
+- Book appointments
+- View appointment history
+- Access medical records
 
-## Database Design
+### Doctor
+- View schedule and appointments
+- Review patient details
+- Manage prescriptions and diagnosis
 
-### Sample Database Schema
+### Admin
+- Create and manage doctors, nurses, and departments
+- Monitor appointments and system activity
+- Generate reports and manage users
 
-- **Users Table**: Contains general user information such as `user_id`, `name`, `email`, `password`, `role` (e.g., patient, doctor, admin, nurse), `contact_number`.
-- **Patients Table**: Stores patient-specific details like `patient_id`, `user_id`, `address`, `age`, `gender`, `medical_history`.
-- **Doctors Table**: Holds doctor information such as `doctor_id`, `user_id`, `specialization`, `department_id`, `availability`.
-- **Appointments Table**: Tracks appointment details with `appointment_id`, `patient_id`, `doctor_id`, `appointment_date`, `status`.
-- **Departments Table**: Contains department data including `department_id`, `name`, and `description`.
-- **Prescriptions Table**: Manages prescription information with fields like `prescription_id`, `doctor_id`, `patient_id`, `medicine_details`.
-- **Staff Table**: Includes `staff_id`, `user_id`, `role`, `assigned_department` for managing nurse/staff assignments.
+### Nurse / Staff
+- View assigned patient records
+- Update vitals and patient status
+- Support doctor workflows
 
----
+## Development Notes
+- Authentication is handled using JWT tokens.
+- Persistence is managed with Spring Data JPA.
+- The frontend uses Axios for REST API communication.
+- The application is designed for extensibility and enterprise use.
 
-## Backend Development
-
-- **Project Setup**:
-  - Initialize with **Spring Boot** using dependencies like:
-    - **Spring Web**
-    - **Spring Data JPA**
-    - **MySQL Driver**
-    - **Spring Security**
-    - **Spring Boot DevTools**
-
-### API Endpoints (Sample)
-
-- **Patient APIs**:
-  - `/register` - Register a new patient.
-  - `/login` - Patient login with JWT authentication.
-  - `/book-appointment` - Book an appointment.
-  - `/view-appointments` - View appointment history.
-
-- **Admin APIs**:
-  - `/manage-doctors` - Add or update doctor profiles.
-  - `/manage-departments` - Manage hospital departments.
-  - `/generate-reports` - Generate reports on patient, financial, and appointment trends.
-
-- **Doctor APIs**:
-  - `/view-schedule` - Access doctor's schedule.
-  - `/add-diagnosis` - Add patient diagnosis and prescribe medications.
-  - `/update-patient-status` - Update status of patient.
-
-- **Nurse/Staff APIs**:
-  - `/view-assigned-patients` - View details of assigned patients.
-  - `/update-vitals` - Update patient vitals.
-
----
-
-## Advanced Features
-
-- **Role-Based Access Control**: Additional security by restricting data access based on user roles.
-- **Mobile-Friendly Design**: Plan for a mobile-responsive interface to improve accessibility on various devices.
-- **Enhanced Notification System**: Planned email and SMS notifications to update patients on appointment confirmations and reminders.
-- **Data Analytics Dashboard**: Advanced reporting on complaint trends, patient satisfaction, and performance metrics.
-- **Real-Time Chat**: Integrated messaging for real-time communication between patients and hospital staff.
-- **Appointment Tracking**: A feature that provides real-time updates on appointment status, similar to order tracking.
-
----
-
-## Installation and Setup
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/ravikumarxworkz/hospital-management-system.git
-   ```
-
-2. **Database Setup**:
-   - Import the SQL script to initialize the MySQL/PostgreSQL database.
-   - Configure the `dbconfig.properties` file with your database connection details.
-
-3. **Build and Deploy**:
-   - Use Maven to build the project.
-   - Deploy the application on a Tomcat server, accessible at `http://localhost:8080/hospital-management-system`.
-
-4. **Run Frontend**:
-   - Navigate to the React project folder and start the app:
-   ```bash
-   npm install
-   npm start
-   ```
-
----
-
-## Future Enhancements
-
-- **Telemedicine Integration**: Video consultation feature for virtual appointments.
-- **Role-Based Data Analytics**: Customized analytics dashboards for admin and department heads.
-- **Enhanced Role-Based Notifications**: Automated reminders and alerts for patients, doctors, and staff.
-- **Third-Party Integration**: Integration with healthcare platforms for data interoperability.
-
----
-
-## GitHub Project Link
-- [GitHub Repository for Hospital Management System](https://github.com/ravikumarxworkz/hospital-management-system)
-
-## Contributing
-We welcome contributions! Please see our `CONTRIBUTING.md` file for guidelines on how to contribute to this project.
+## Contribution
+Contributions are welcome. Please open an issue or submit a pull request with proposed improvements.
 
 ## License
-This project is licensed under the **MIT License**. Please refer to the `LICENSE` file for more information.
+This project is provided under the MIT License.
